@@ -18,7 +18,11 @@ import CS5850_iBox.ibox.GoogleDriveSync.GoogleDriveManager;
  */
 public class WatcherService 
 {
-	GoogleDriveManager driveManager = new GoogleDriveManager();
+	GoogleDriveManager driveManager;
+	
+	public WatcherService() throws GeneralSecurityException, IOException {
+		driveManager = new GoogleDriveManager();
+	}
 	public void watchFiles() throws IOException, GeneralSecurityException
     {
     	
@@ -55,13 +59,18 @@ public class WatcherService
     	        System.out.println("*** Filename" +  filename);
     	        
     	        if(kind.toString().equals("ENTRY_CREATE")) {
-    	        	driveManager.createFile(filename.toString());
+    	        	if(driveManager.createFile(filename.toString())) {
+    	        		System.out.println(filename.toString() +" uploaded!!");
+    	        	}
     	        }
     	        else if(kind.toString().equals("ENTRY_DELETE")) {
     	        	driveManager.deleteFile(filename.toString());
+    	        	System.out.println(filename.toString() +" deleted!!");
     	        }
     	        else if(kind.toString().equals("ENTRY_MODIFY")) {
-    	        	driveManager.modifyFile(filename.toString());
+    	        	if(driveManager.modifyFile(filename.toString())) {
+    	        		System.out.println(filename.toString() +" modified!!");
+    	        	}
     	        }
 
     	    }

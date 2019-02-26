@@ -30,7 +30,60 @@ public class GoogleDriveService {
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    Drive service;
+    
+   public GoogleDriveService() throws GeneralSecurityException, IOException {
+	   final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+       service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+               .setApplicationName(APPLICATION_NAME)
+               .build();
+   }
+    public boolean upload(String filename) throws GeneralSecurityException, IOException {
+//    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//        Drive driveService = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+//                .setApplicationName(APPLICATION_NAME)
+//                .build();
+    	File fileMetadata = new File();
+    	fileMetadata.setName(filename);
+    	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
+    	FileContent mediaContent = new FileContent("text/txt", filePath);
+    	File file = service.files().create(fileMetadata, mediaContent)
+    	    .setFields("id")
+    	    .execute();
+    	return !file.getId().isEmpty();
+    }
+    
+    public void deleteFile(String filename) throws GeneralSecurityException, IOException  {
+//    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+//                .setApplicationName(APPLICATION_NAME)
+//                .build();
 
+    	String fileId = getFileId(filename);
+		if (fileId == null) {
+			throw new FileNotFoundException();
+		} else {
+			service.files().delete(fileId).execute();
+		}
+	}
+    
+    public boolean modifyFile(String filename) throws IOException, GeneralSecurityException {
+//    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+//                .setApplicationName(APPLICATION_NAME)
+//                .build();
+        
+    	String fileId = getFileId(filename);
+	
+		File body = new File();
+		body.setName(filename);
+    	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
+    	FileContent mediaContent = new FileContent("text/txt", filePath);
+		File file = service.files().update(fileId, body, mediaContent).execute();
+		return !file.getId().isEmpty();
+		
+	}
+    
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
         InputStream in = GoogleDriveService.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
@@ -45,53 +98,7 @@ public class GoogleDriveService {
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
-    public void upload(String filename) throws GeneralSecurityException, IOException {
-    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive driveService = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-    	File fileMetadata = new File();
-    	fileMetadata.setName(filename);
-    	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
-    	FileContent mediaContent = new FileContent("text/txt", filePath);
-    	File file = driveService.files().create(fileMetadata, mediaContent)
-    	    .setFields("id")
-    	    .execute();
-    	System.out.println("File ID: " + file.getId());
-    }
     
-    public void deleteFile(String filename) throws GeneralSecurityException, IOException  {
-    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-
-    	String fileId = getFileId(filename);
-		if (fileId == null) {
-			throw new FileNotFoundException();
-		} else {
-			service.files().delete(fileId).execute();
-			System.out.println(filename +"  deleted ");
-		}
-	}
-    
-    public void modifyFile(String filename) throws IOException, GeneralSecurityException {
-    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-        
-    	String fileId = getFileId(filename);
-	
-		File body = new File();
-		body.setName(filename);
-    	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
-    	FileContent mediaContent = new FileContent("text/txt", filePath);
-		File file = service.files().update(fileId, body, mediaContent).execute();
-		System.out.println("Modified File ID: " + file.getId());
-		
-	}
-
     private String getFileId(String filename) throws GeneralSecurityException, IOException {
     	
     	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
