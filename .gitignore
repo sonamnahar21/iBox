@@ -3,9 +3,8 @@
 
 
 # Ignore Gradle build output directory
-<<<<<<< HEAD
 build
 tokens
+target
 =======
 build
->>>>>>> some changes

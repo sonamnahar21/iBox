@@ -14,7 +14,10 @@ public class App
     public static void main( String[] args ) throws IOException, GeneralSecurityException
     {
     	
-    	WatcherService  watcherService = new WatcherService();
+    	WatcherService watcherService = new WatcherService();
     	watcherService.watchFiles();
+   	
+    	
     }
+    
 }
