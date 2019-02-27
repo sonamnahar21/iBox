@@ -17,63 +17,87 @@ public class GoogleDriveService {
     
 
 	
-	public boolean upload(String filename, Drive service) throws GeneralSecurityException, IOException {
+	public boolean upload(String filename, Drive service){
 
-    	System.out.println("in upload File" +filename );
-    	File fileMetadata = new File();
+    	try {
+		File fileMetadata = new File();
     	fileMetadata.setName(filename);
     	
-    	System.out.println("1");
     	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
-    	System.out.println("2");
     	FileContent mediaContent = new FileContent("text/txt", filePath);
-    	System.out.println("3");
     	File file = service.files().create(fileMetadata, mediaContent)
     	    .setFields("id")
     	    .execute();
-    	System.out.println("4");
     	
-    	System.out.println("file uploaded");
-    	return !file.getId().isEmpty();
+    	return true; //!file.getId().isEmpty();
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    		return false;
+    	}
+		
     }
     
-    public void deleteFile(String filename, Drive service) throws GeneralSecurityException, IOException  {
+    public boolean deleteFile(String filename, Drive service)  {
 
-    	String fileId = getFileId(filename, service);
-		if (fileId == null) {
-			throw new FileNotFoundException();
-		} else {
-			service.files().delete(fileId).execute();
+    	try {
+    		String fileId = getFileId(filename, service);
+
+	    	if (fileId == null) {
+				throw new FileNotFoundException();
+			} else {
+				service.files().delete(fileId).execute();
+			}
+	    	return true;
+	    	
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return false;
 		}
 	}
     
-    public boolean modifyFile(String filename, Drive service) throws IOException, GeneralSecurityException {
-        
-    	String fileId = getFileId(filename,service);
+    public boolean modifyFile(String filename, Drive service){
 	
+    	try {
+    		
+    	String fileId = getFileId(filename,service);
 		File body = new File();
 		body.setName(filename);
     	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
     	FileContent mediaContent = new FileContent("text/txt", filePath);
 		File file = service.files().update(fileId, body, mediaContent).execute();
-		return !file.getId().isEmpty();
+		//return !file.getId().isEmpty();
+    	}
+    	catch(Exception e) {
+    		System.out.println(e.getMessage());
+    	}
+    	return true;
+
 		
 	}
 
-    private String getFileId(String filename, Drive service) throws GeneralSecurityException, IOException {
+    private String getFileId(String filename, Drive service){
     	
-    	
-
-        FileList result = service.files().list().execute();
-        List<File> files = result.getFiles();
-       
-        for (File file : files) {
-        	if(file.getName().equals(filename))
-        	{
-        		return file.getId();
-        	}
-        }
-		return null;
+    	String fileID= null;
+    	try {
+	        FileList result = service.files().list().execute();
+	        List<File> files = result.getFiles();
+	       
+	        for (File file : files) {
+	        	if(file.getName().equals(filename))
+	        	{
+	        		fileID =  file.getId();
+	        	}
+	        }
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    	}
+    	return fileID;
+		
     }
 
     
