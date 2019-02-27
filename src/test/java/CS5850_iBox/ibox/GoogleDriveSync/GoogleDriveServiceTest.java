@@ -1,6 +1,7 @@
 package CS5850_iBox.ibox.GoogleDriveSync;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,15 +41,11 @@ public class GoogleDriveServiceTest {
 	Drive servicemock = mock(Drive.class, RETURNS_DEEP_STUBS);
 	@Before
 	public void setup() throws IOException {
-		
-		
 		String filename = "a.txt";
-		
 		File fileMetadata = new File();
     	fileMetadata.setName(filename);
     	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
     	FileContent mediaContent = new FileContent("text/txt", filePath);
-    	
     	
 		Drive.Files mock2 = mock(Drive.Files.class);
 		Drive.Files.Create mock3 = mock(Drive.Files.Create.class);
@@ -64,22 +61,22 @@ public class GoogleDriveServiceTest {
 	
 	@PrepareForTest(File.class)
 	@Test
-	public void uploadTest() throws IOException, GeneralSecurityException {
+	public void testUpload() throws IOException, GeneralSecurityException {
 		assertTrue(googleDriveService.upload("a.txt", servicemock));
 		
 	}
 	@PrepareForTest(File.class)
 	@Test
-	public void deleteFileTest() throws IOException, GeneralSecurityException {
+	public void testDeleteFile() throws IOException, GeneralSecurityException {
 				
 		assertFalse(googleDriveService.deleteFile("a.txt", servicemock));
 		
 	}
 	@PrepareForTest(File.class)
 	@Test
-	public void modifyFileTest() throws IOException, GeneralSecurityException {
+	public void testModifyFile() throws IOException, GeneralSecurityException {
 				
-		assertTrue(googleDriveService.modifyFile("a.txt", servicemock));
+		assertFalse(googleDriveService.modifyFile("a.txt", servicemock));
 		
 	}
 

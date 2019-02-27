@@ -45,11 +45,12 @@ public class GoogleDriveService {
     		String fileId = getFileId(filename, service);
 
 	    	if (fileId == null) {
-				throw new FileNotFoundException();
+				//throw new FileNotFoundException();
+				return false;
 			} else {
 				service.files().delete(fileId).execute();
+		    	return true;
 			}
-	    	return true;
 	    	
 		}
 		catch(Exception e) {
@@ -62,18 +63,26 @@ public class GoogleDriveService {
 	
     	try {
     		
-    	String fileId = getFileId(filename,service);
-		File body = new File();
-		body.setName(filename);
-    	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
-    	FileContent mediaContent = new FileContent("text/txt", filePath);
-		File file = service.files().update(fileId, body, mediaContent).execute();
-		//return !file.getId().isEmpty();
+    		String fileId = getFileId(filename,service);
+	    	if (fileId == null) {
+	    		return false;
+	    	}
+	    	else
+	    	{
+				File body = new File();
+				body.setName(filename);
+		    	java.io.File filePath = new java.io.File("./iboxLocalDrive/"+filename);
+		    	FileContent mediaContent = new FileContent("text/txt", filePath);
+				File file = service.files().update(fileId, body, mediaContent).execute();
+				return true;
+				//return !file.getId().isEmpty();
+	    	}
     	}
     	catch(Exception e) {
     		System.out.println(e.getMessage());
+    		return false;
     	}
-    	return true;
+    	
 
 		
 	}

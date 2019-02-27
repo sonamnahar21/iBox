@@ -36,7 +36,7 @@ import CS5850_iBox.ibox.GoogleDriveSync.GoogleDriveService;
  */
 public class WatcherService 
 {
-	 private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
+	private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
@@ -44,14 +44,12 @@ public class WatcherService
 	GoogleDriveService googleDriveService;
 	
 	public WatcherService() throws GeneralSecurityException, IOException {
-
 		
 		File file = new File("./tokens/StoredCredential");
 		  if(file.delete()) 
 		  { 
 		      System.out.println("File deleted successfully"); 
 		      
-
 		  } 
 		  else
 		  { 
@@ -128,7 +126,7 @@ public class WatcherService
 
     }
     
-  private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+  public static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
       // Load client secrets.
       InputStream in = GoogleDriveService.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
       GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
