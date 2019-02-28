@@ -53,8 +53,6 @@ public class GoogleDriveServiceIntegTest {
 		File fileForModify = new File("./iboxLocalDrive/test_Modify.txt");
 		fileForModify.createNewFile();
 		googleDriveService.upload(fileForModify.getName(), service);
-    	
-		
 	}
 	@Test
 	public void testUploadIntegration() throws IOException, GeneralSecurityException {
