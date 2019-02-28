@@ -52,10 +52,16 @@ public class GoogleDriveServiceTest {
 		Drive.Files.Create mock4 = mock(Drive.Files.Create.class);		
 		File mock5 = mock(File.class);
 		
+		
 		when(servicemock.files()).thenReturn(mock2);
 		when(mock2.create(any(File.class),any(FileContent.class))).thenReturn(mock3);
 		when(mock3.setFields(eq("id"))).thenReturn(mock4);
-		PowerMockito.when(mock4.execute()).thenReturn(mock5);
+		when(mock4.execute()).thenReturn(mock5);
+		
+//		when(servicemock.files()).thenReturn(mock2);
+//		when(mock2.create(any(File.class),any(FileContent.class))).thenReturn(mock3);
+//		when(mock3.setFields(eq("id"))).thenReturn(mock4);
+//		PowerMockito.when(mock4.execute()).thenReturn(mock5);
 	}
 	
 	
