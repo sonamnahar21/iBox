@@ -41,21 +41,10 @@ public class WatcherService
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private String path = "./tokens/StoredCredential";
 	GoogleDriveService googleDriveService;
 	
 	public WatcherService() throws GeneralSecurityException, IOException {
-		
-		File file = new File("./tokens/StoredCredential");
-		  if(file.delete()) 
-		  { 
-		      System.out.println("File deleted successfully"); 
-		      
-		  } 
-		  else
-		  { 
-		      System.out.println("Failed to delete the file"); 
-		  } 
-
 		googleDriveService = new GoogleDriveService();
 	}
 
@@ -140,6 +129,5 @@ public class WatcherService
       LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
       return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
   }
-  
-	
+ 
 }

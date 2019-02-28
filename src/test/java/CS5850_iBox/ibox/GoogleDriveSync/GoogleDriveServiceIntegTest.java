@@ -64,9 +64,7 @@ public class GoogleDriveServiceIntegTest {
 		assertFalse(googleDriveService.upload("dummy.txt", service));
 	}
 	@Test
-	public void testModifyFileIntegrationTest() throws IOException, GeneralSecurityException {
-			
-			
+	public void testModifyFileIntegrationTest() throws IOException, GeneralSecurityException {	
 			BufferedWriter bufwriter = new BufferedWriter(new FileWriter("./iboxLocalDrive/"+"test_Modify.txt"));
 	        bufwriter.write("habsfhbsghbgk");//writes the edited string buffer to the new file
 	        bufwriter.close();//closes the file			

@@ -12,6 +12,7 @@ import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 
 import com.google.api.client.http.FileContent;
 import com.google.api.services.drive.Drive;
@@ -47,10 +48,6 @@ public class GoogleDriveServiceTest {
 		when(mock3.setFields(eq("id"))).thenReturn(mock4);
 		when(mock4.execute()).thenReturn(mock5);
 		
-//		when(servicemock.files()).thenReturn(mock2);
-//		when(mock2.create(any(File.class),any(FileContent.class))).thenReturn(mock3);
-//		when(mock3.setFields(eq("id"))).thenReturn(mock4);
-//		PowerMockito.when(mock4.execute()).thenReturn(mock5);
 	}
 	
 	
