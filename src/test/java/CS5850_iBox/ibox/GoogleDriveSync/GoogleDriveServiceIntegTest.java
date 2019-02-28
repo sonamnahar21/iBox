@@ -15,6 +15,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.verify;
 
 import java.io.BufferedWriter;
 import java.io.File;

@@ -65,26 +65,26 @@ public class GoogleDriveServiceTest {
 	}
 	
 	
-	@PrepareForTest(File.class)
-	@Test
-	public void testUpload() throws IOException, GeneralSecurityException {
-		assertTrue(googleDriveService.upload("a.txt", servicemock));
-		verify(servicemock, times(1)).files();		
-	}
-	@PrepareForTest(File.class)
-	@Test
-	public void testDeleteFile() throws IOException, GeneralSecurityException {
-				
-		assertFalse(googleDriveService.deleteFile("a.txt", servicemock));
-		verify(servicemock, times(1)).files();		
-		
-	}
-	@PrepareForTest(File.class)
-	@Test
-	public void testModifyFile() throws IOException, GeneralSecurityException {
-				
-		assertFalse(googleDriveService.modifyFile("a.txt", servicemock));
-		verify(servicemock, times(1)).files();		
-	}
+//	@PrepareForTest(File.class)
+//	@Test
+//	public void testUpload() throws IOException, GeneralSecurityException {
+//		assertTrue(googleDriveService.upload("a.txt", servicemock));
+//		verify(servicemock, times(1)).files();		
+//	}
+//	@PrepareForTest(File.class)
+//	@Test
+//	public void testDeleteFile() throws IOException, GeneralSecurityException {
+//				
+//		assertFalse(googleDriveService.deleteFile("a.txt", servicemock));
+//		verify(servicemock, times(1)).files();		
+//		
+//	}
+//	@PrepareForTest(File.class)
+//	@Test
+//	public void testModifyFile() throws IOException, GeneralSecurityException {
+//				
+//		assertFalse(googleDriveService.modifyFile("a.txt", servicemock));
+//		verify(servicemock, times(1)).files();		
+//	}
 
 }
