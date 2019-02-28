@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - checkout
- 	  - run: echo ${GOOGLE_AUTH} > quickstart-1550604033423-c9aeab7ef7ea.json
+      - run: echo ${GOOGLE_AUTH} > quickstart-1550604033423-c9aeab7ef7ea.json
       # Download and cache dependencies
       - restore_cache:
           keys:
