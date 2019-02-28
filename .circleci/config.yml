@@ -8,19 +8,28 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
-      - image: google/cloud-sdk
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
+      - image: google/cloud-sdk
 
     working_directory: ~/repo
 
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
-
+      type: service_account,
+	  GOOGLE_PROJECT_ID: quickstart-1550604033423,
+	  private_key_id: c9aeab7ef7ea5e40844b7a67f55e2859d656b802,
+	  private_key: -----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDJH9uPSV/Heqfg\n8Qvh3/BY8NaW6bbhDEHdbYRJViOBxoBHz6EhCISrLZznu0zt60OhC/Mjja4hw1a7\nqsRGGX0uH88EMw7vn1pTGTcLiZWRzZ38jf/eooBhUNzu9yy1LaWHwWaQYnXntMud\nd+UMRUSlQfDxPL4h/28PQpJGeYZWgLSbaP07FFZAMupUSj/PO6aRGxvsAGveX4ul\nsLOkRbYEfWFC3kUhKZDpj87uqC8DmcGKK7Ls1SACmUuhSEU6TjjtP3i50ksxzL/z\nnZ7eHftwQy6xRd1EKlTZzCIKOTfHnkhu5+AbeYJlAijFWTi4sRSI6oGLUq7voET+\n+hd0Lsg5AgMBAAECggEAJAKWNyN2CKtHX5kI/Zow2FvWsBKMceLV8CVpqA/KL7Qw\nx6q/OMDjsBpsm3kHnxmedDlFgToe0WC+KL+8gKiTpyx+zkuuAu1PKM28803g/8gG\n3281PtFtlv75b7fFw3K2zoWsLXHTlnbidgE/e2Dzl3sk/qxXhpLLebn7oq6jhN0Z\nJdIJxAZkikJH3kR08UmHwx0U8YjvCc2xWkDKfuZ12IbhmFMsXbo2s8ADE9pY/+Nr\nbeb5Fbedqd066SDFcjyMv+/9UhBaPwppC5A5gC3CiM6FYZKbOHritoUZaj3VjNa4\nj0I+XJbfHF7OUt5XxCv+GsBpQhG3U9BE1YxeNwqKmQKBgQDsl/fTb0FyfGu9Do2A\nDKfeuBHpkKctDVpbGDqk44wH+pKtXbistAS0k28amxVzC/EM/jaHTS7qxqY+FCq7\ngfNbPiqFwkt0HLwe+zHqntAQUQ0nyZSnrdm+MH1DafLFz9H9mFOOCvjm1V7JnIgB\nTBXdt5h0EICZ9H7/lHqQiaBaawKBgQDZnxoUPVsPCQz9AFoyhdQeJD4JPYF2m68H\n+WiDySA0BFDY06IGMIYceqI8P7t4PhMv08Ux+qd8oWwevDQKX92SUUvmfIeplduc\nm4pEqqjsVNBmSWOGEWdW4a/prglGaBsQizTFSIuFzefRcZWC8XoL3Z0wo2D+//BB\nlIj1BHVY6wKBgEbrgtk5R1gHHdCNFTNmF8f2S0BFISerEgOubp3Qq8AUh3U6W8pB\nKAvtCefixvo2gSpQ5Y2HQGIV6+095FVSrd0S9HIl/LIwjt+Gkr7unhXWBeiAT3Q3\n88ZECLh1gNV051BqIdm5RkUDfqdWqZoh8YgFqchYzgPYO11nZ5n99zhDAoGAHBom\nlPyDWMKzcaxs+V880BOgCzNtF3LtPFthurrrNKxmAEn7/06e0uinMJ6OR+3ELoXr\nThPvMvHpc2KcWcadZzqmUYI9RpH6hRO03D8phzNAoiTR/EsdDCQiwkteGUByVkWT\nr/I5SjMXv30qcHlcaFHa7Z/7c5J7ZQyYTwOfX7cCgYEA2HeIotdIXsL6hI6Ui556\nKVxUgMIluJXyZ6Jymm76tSLuE5OlBn6IRhIOPCVD4eI22C+BpkNFRU0ZpfVs+Tcf\nxKVZzjSMHBaK2HtNf2/Z1hgc+gfXo8GnofKIjrAlXQEv6Wzdp/klFf/gZxT7JRcA\nKS9idHN4q/jokWr52rq+gVI=\n-----END PRIVATE KEY-----\n,
+	  client_email: iboxdrive@quickstart-1550604033423.iam.gserviceaccount.com,
+	  client_id: 109396570810858481497,
+	  auth_uri: https://accounts.google.com/o/oauth2/auth,
+	  token_uri: https://oauth2.googleapis.com/token,
+	  auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs,
+	  client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/iboxdrive%40quickstart-1550604033423.iam.gserviceaccount.com
     steps:
       - checkout
 
@@ -32,6 +41,8 @@ jobs:
             - v1-dependencies-
 
       - run: mvn dependency:go-offline
+      echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file= quickstart-1550604033423-c9aeab7ef7ea.json
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
 
       - save_cache:
           paths:
