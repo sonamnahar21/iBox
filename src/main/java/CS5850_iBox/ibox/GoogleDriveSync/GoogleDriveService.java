@@ -85,9 +85,9 @@ public class GoogleDriveService {
 
 	}
 
-    private String getFileId(String filename, Drive service){
-    	
+    public String getFileId(String filename, Drive service){ 	
     	String fileID= null;
+
     	try {
 	        FileList result = service.files().list().execute();
 	        List<File> files = result.getFiles();
@@ -101,6 +101,7 @@ public class GoogleDriveService {
     	}
     	catch(Exception e)
     	{
+    		fileID= null;
     		System.out.println(e.getMessage());
     	}
     	return fileID;

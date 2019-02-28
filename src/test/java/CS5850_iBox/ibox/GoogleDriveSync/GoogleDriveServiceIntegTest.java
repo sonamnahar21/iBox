@@ -83,6 +83,10 @@ public class GoogleDriveServiceIntegTest {
 	public void testDeleteFileIntegrationTestForNotFileFound() throws IOException, GeneralSecurityException {
 		assertFalse(googleDriveService.deleteFile("dummyfile.txt", service));
 	}
+	@Test
+	public void testGetFileIdIntegrationTest()  {						
+		assertNull(googleDriveService.getFileId("a.txt", service));	
+	}
 	@AfterClass
 	public static void cleanUp()
 	{
@@ -99,5 +103,6 @@ public class GoogleDriveServiceIntegTest {
             System.out.println("Failed to delete the file"); 
         } 
 	}
+	
 }
 

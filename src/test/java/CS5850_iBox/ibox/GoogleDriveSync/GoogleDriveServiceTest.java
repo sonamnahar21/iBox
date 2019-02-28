@@ -25,8 +25,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore({ "javax.net.ssl.*", "javax.security.*" })
 
-public class GoogleDriveServiceTest {
-	
+public class GoogleDriveServiceTest {	
 	GoogleDriveService googleDriveService = new GoogleDriveService();
 	Drive servicemock = mock(Drive.class, RETURNS_DEEP_STUBS);
 	@Before
@@ -72,5 +71,4 @@ public class GoogleDriveServiceTest {
 		assertFalse(googleDriveService.modifyFile("a.txt", servicemock));
 		verify(servicemock, times(1)).files();		
 	}
-
 }
