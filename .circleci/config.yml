@@ -16,7 +16,7 @@ jobs:
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
-      GOOGLE_AUTH :quickstart-1550604033423-c9aeab7ef7ea.json
+      GOOGLE_AUTH: quickstart-1550604033423-c9aeab7ef7ea.json
 
     steps:
       - checkout
