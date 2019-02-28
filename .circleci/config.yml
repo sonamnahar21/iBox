@@ -12,19 +12,13 @@ jobs:
 
     working_directory: ~/repo
 
-
     environment:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
-      GOOGLE_AUTH: quickstart-1550604033423-c9aeab7ef7ea.json
 
     steps:
       - checkout
-      - run: echo ${GOOGLE_AUTH} > quickstart-1550604033423-c9aeab7ef7ea.json
-	  - run: docker build --rm=false -t eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
-      - run: gcloud auth activate-service-account --key-file ${HOME}/quickstart-1550604033423-c9aeab7ef7ea.json
-      - run: gcloud --quiet config set project ${GCP_PROJECT}
-      - run: gcloud docker -- push eu.gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
+
       # Download and cache dependencies
       - restore_cache:
           keys:
