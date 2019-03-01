@@ -33,7 +33,6 @@ import com.google.api.services.drive.Drive;
 
 
 import CS5850_iBox.ibox.drive.WatcherService;
-
 public class GoogleDriveServiceIntegTest {
 	static GoogleDriveService googleDriveService;
 	static Drive service;
@@ -103,6 +102,5 @@ public class GoogleDriveServiceIntegTest {
             System.out.println("Failed to delete the file"); 
         } 
 	}
-	
 }
 

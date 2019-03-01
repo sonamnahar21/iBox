@@ -43,11 +43,11 @@ public class WatcherService
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
     private String path = "./tokens/StoredCredential";
 	GoogleDriveService googleDriveService;
+	static boolean exitFlag;
 	
 	public WatcherService() throws GeneralSecurityException, IOException {
 		googleDriveService = new GoogleDriveService();
 	}
-
 	public String watchFiles() throws IOException, GeneralSecurityException
     {
     	
@@ -70,7 +70,7 @@ public class WatcherService
     	    System.err.println(x);
     	}
     	
-    	for (;;) {
+    	while(!exitFlag) {
     	    WatchKey key = null;
     	    try {
     	        key = watcher.take();

@@ -18,7 +18,6 @@ public class GoogleDriveService {
 
 	
 	public boolean upload(String filename, Drive service){
-
     	try {
 		File fileMetadata = new File();
     	fileMetadata.setName(filename);
