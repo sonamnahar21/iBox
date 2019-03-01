@@ -80,6 +80,19 @@
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>2.7</version>
 			</plugin>
+			<!-- <plugin> <groupId>com.github.spotbugs</groupId> <artifactId>spotbugs-maven-plugin</artifactId> 
+				<version>3.1.12-SNAPSHOT</version> <configuration> <xmlOutput>true</xmlOutput> 
+				Optional directory to put spotbugs xdoc xml report <xmlOutputDirectory>target/site</xmlOutputDirectory> 
+				</configuration> </plugin> -->
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>3.1.10</version>
+				<!-- <dependencies> overwrite dependency on spotbugs if you want to specify 
+					the version of spotbugs <dependency> <groupId>com.github.spotbugs</groupId> 
+					<artifactId>spotbugs</artifactId> <version>3.1.11</version> </dependency> 
+					</dependencies> -->
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
@@ -108,11 +121,6 @@
 							<groupId>org.jacoco</groupId>
 							<artifactId>jacoco-maven-plugin</artifactId>
 							<version>0.8.2</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>findbugs-maven-plugin</artifactId>
-							<version>3.0.5</version>
 						</plugin>
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
